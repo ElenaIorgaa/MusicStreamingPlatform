@@ -1,0 +1,308 @@
+/* -------------------------------------------------------- */
+/*	Animation
+/* -------------------------------------------------------- */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    -o-transform: rotate(120deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    -o-transform: rotate(120deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-moz-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    -o-transform: rotate(120deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+@-ms-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    -o-transform: rotate(120deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+}
+html {
+  min-height: 100%;
+  background: linear-gradient(#51addf, #0d1b44);
+  background-repeat: no-repeat;
+}
+
+h1 {
+  text-align: center;
+  font-family: helvetica, arial, sans-serif;
+  color: #fff;
+  font-size: 3em;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  line-height: 1;
+}
+
+div#shazam {
+  position: relative;
+}
+div#shazam button {
+  position: absolute;
+  cursor: pointer;
+  width: 224px;
+  height: 224px;
+  left: 50%;
+  top: 50%;
+  margin-left: -112px;
+  margin-top: -112px;
+  display: block;
+  border: none;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+  background-color: #040510;
+  background-repeat: repeat-x;
+  -webkit-transition: background-position;
+  transition: background-position;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  background: linear-gradient(#5fb8e6, #040510);
+  z-index: 2;
+}
+div#shazam button:hover {
+  background-position: 0 -25px;
+}
+div#shazam button span.c {
+  display: block;
+  position: absolute;
+  border: 31.1111111111px solid white;
+  width: 56px;
+  height: 56px;
+  border-right: none;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -56px;
+  -webkit-border-radius: 100px 0 0 100px;
+  -moz-border-radius: 100px 0 0 100px;
+  border-radius: 100px 0 0 100px;
+}
+div#shazam button span.c:before, div#shazam button span.c:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 31.1111111111px;
+  height: 31.1111111111px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  background: #fff;
+}
+div#shazam button span.c:before {
+  left: 41px;
+  top: -31px;
+}
+div#shazam button span.c:after {
+  left: 41px;
+  top: 56px;
+}
+div#shazam button span.c.one {
+  left: 32%;
+  top: 50%;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+}
+div#shazam button span.c.two {
+  left: 65%;
+  top: 45%;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+}
+
+#slices {
+  -webkit-animation: rotate 9s infinite ease-in-out;
+  -moz-animation: rotate 9s infinite ease-in-out;
+  -ms-animation: rotate 9s infinite ease-in-out;
+  -o-animation: rotate 9s infinite ease-in-out;
+  animation: rotate 9s infinite ease-in-out;
+  margin: 0 auto;
+  width: 280px;
+  height: 280px;
+  background: teal;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) 0 0 22px rgba(0, 0, 0, 0.7) 0 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) 0 0 22px rgba(0, 0, 0, 0.7) 0 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) 0 0 22px rgba(0, 0, 0, 0.7) 0 0 rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 300px;
+  -moz-border-radius: 300px;
+  border-radius: 300px;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+}
+#slices .slice {
+  z-index: 1;
+  display: block;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  margin-left: -100px;
+}
+#slices .slice.one {
+  left: 195px;
+  top: -75px;
+  -webkit-transform: rotate(-19deg) skew(6deg, 6deg);
+  -ms-transform: rotate(-19deg) skew(6deg, 6deg);
+  transform: rotate(-19deg) skew(6deg, 6deg);
+  background-color: #0E63B8;
+}
+#slices .slice.two {
+  left: 123%;
+  top: 19%;
+  -webkit-transform: rotate(49deg) skew(-25deg, -25deg);
+  -ms-transform: rotate(49deg) skew(-25deg, -25deg);
+  transform: rotate(49deg) skew(-25deg, -25deg);
+  background-color: #199ED8;
+}
+#slices .slice.three {
+  left: 115%;
+  top: 49%;
+  -webkit-transform: rotate(73deg) skew(-25deg, -25deg);
+  -ms-transform: rotate(73deg) skew(-25deg, -25deg);
+  transform: rotate(73deg) skew(-25deg, -25deg);
+  background-color: #CDEBF7;
+}
+#slices .slice.four {
+  left: 94%;
+  top: 73%;
+  -webkit-transform: rotate(98deg) skew(-25deg, -25deg);
+  -ms-transform: rotate(98deg) skew(-25deg, -25deg);
+  transform: rotate(98deg) skew(-25deg, -25deg);
+  background-color: #95D4ED;
+}
+#slices .slice.five {
+  left: 192px;
+  top: 85%;
+  -webkit-transform: rotate(120deg) skew(-25deg, -25deg);
+  -ms-transform: rotate(120deg) skew(-25deg, -25deg);
+  transform: rotate(120deg) skew(-25deg, -25deg);
+  background-color: #84CBE8;
+}
+#slices .slice.six {
+  left: 121px;
+  top: 88%;
+  -webkit-transform: rotate(140deg) skew(-25deg, -25deg);
+  -ms-transform: rotate(140deg) skew(-25deg, -25deg);
+  transform: rotate(140deg) skew(-25deg, -25deg);
+  background-color: #5AB8E1;
+}
+#slices .slice.seven {
+  left: 51px;
+  top: 81%;
+  -webkit-transform: rotate(160deg) skew(-25deg, -25deg);
+  -ms-transform: rotate(160deg) skew(-25deg, -25deg);
+  transform: rotate(160deg) skew(-25deg, -25deg);
+  background-color: #47AADA;
+}
+#slices .slice.eight {
+  left: -19px;
+  top: 149px;
+  -webkit-transform: rotate(190deg) skew(-20deg, -20deg);
+  -ms-transform: rotate(190deg) skew(-20deg, -20deg);
+  transform: rotate(190deg) skew(-20deg, -20deg);
+  background-color: #2A99D4;
+}
+#slices .slice.nine {
+  left: 1px;
+  top: -22px;
+  -webkit-transform: rotate(246deg) skew(-17deg, -17deg);
+  -ms-transform: rotate(246deg) skew(-17deg, -17deg);
+  transform: rotate(246deg) skew(-17deg, -17deg);
+  background-color: #1E86C9;
+}
+#slices .slice.ten {
+  left: 56px;
+  top: -178px;
+  -webkit-transform: rotate(-66deg) skew(-33deg, -33deg);
+  -ms-transform: rotate(-66deg) skew(-33deg, -33deg);
+  transform: rotate(-66deg) skew(-33deg, -33deg);
+  background-color: #1279C4;
+}
+
+/*# sourceMappingURL=file.css.map */

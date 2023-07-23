@@ -1,0 +1,483 @@
+@mixin x-animation($values) {
+  -webkit-animation: $values;
+  animation: $values;
+}
+
+@mixin x-keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin x-appearance($value) {
+  -webkit-appearance: $value;
+  -moz-appearance: $value;
+  appearance: $value;
+}
+
+@mixin x-background-size($values...) {
+  -webkit-background-size: $values; // For Android 2.x
+  background-size: $values;
+}
+
+@mixin x-border-radius($values) {
+  -webkit-border-radius: $values; // iOS Safari 3.2, Android 2.1
+  border-radius: $values;
+}
+
+@mixin x-box-shadow($values...) {
+  -webkit-box-shadow: $values; // iOS Safari 3.2 - 4.3, Android 2.1+
+  box-shadow: $values;
+}
+
+@mixin x-box-sizing($type: border-box) {
+  -webkit-box-sizing: $type; // Safari <= 5.0, Chrome <= 9.0, iOS Safari 3.2 - 4.3 and Android 2.1 - 3.0
+  -moz-box-sizing: $type; // FF 2.0 - 28.0
+  box-sizing: $type; // IE 8, Opera 9.5+
+}
+
+@mixin x-at-least($device-width) {
+  @media screen and (min-width: $device-width) {
+    @content;
+  }
+}
+
+@mixin x-until($device-width) {
+  @media screen and (max-width: $device-width - 0.01) {
+    @content;
+  }
+}
+
+@mixin x-breakpoints($point, $bp-mobile-width: 640px, $bp-tablet-width: 1024px) {
+  $bp-mobile: '(max-width: #{$bp-mobile-width})';
+  $bp-tablet: '(min-width: #{$bp-mobile-width}) and (max-width: #{$bp-tablet-width})';
+  $bp-desktop: '(min-width: #{$bp-tablet-width})';
+
+  @if $point == mobile {
+    @media #{$bp-mobile} {
+      @content;
+    }
+  } @else if $point == tablet {
+    @media #{$bp-tablet} {
+      @content;
+    }
+  } @else if $point == desktop {
+    @media #{$bp-desktop} {
+      @content;
+    }
+  } @else {
+    @warn "You are requesting an invalid breakpoint: `#{$point}`.";
+  }
+}
+
+@mixin x-calc($property, $expression) {
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
+@mixin x-display-flex {
+  display: -webkit-box; // Chrome 20-, iOS 6-, Safari 3.1  -6
+  display: -moz-box; // FF 19-
+  display: -webkit-flex; // Chrome 21 - 28
+  display: -ms-flexbox; // IE 10
+  display: flex; // FF 20+, Chrome 29+, Opera 12.1, 17+
+}
+
+@mixin x-flex($values...) {
+  -webkit-box-flex: $values; // Chrome 20-, iOS 6-, Safari 3.1 - 6
+  -moz-box-flex: $values; // FF 19-
+  -webkit-flex: $values; // Chrome 21 - 28
+  -ms-flex: $values; // IE 10
+  flex: $values; // FF 20+, Chrome 29+, Opera 12.1, 17+
+}
+
+@mixin x-flex-direction($value) {
+  @if $value == row {
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+  } @else if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -moz-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -moz-box-direction: reverse;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+  }
+
+  -webkit-flex-direction: $value;
+  -moz-flex-direction: $value;
+  -ms-flex-direction: $value;
+  flex-direction: $value;
+}
+
+@function helper-gradient-angle ($direction) {
+
+  $old-direction: $direction;
+  $veryold-direction: $direction;
+
+  // New Syntax has to be evaluated to old one
+  @if $direction == 'to bottom' {
+    $old-direction: 'top';
+  } @else if $direction == 'to right' {
+    $old-direction: 'left';
+  } @else if $direction == 'to top' {
+    $old-direction: 'bottom';
+  } @else if $direction == 'to left' {
+    $old-direction: 'right';
+  } @else {
+    $old-direction: angle($direction);
+  }
+
+  // And also for very old syntax
+  @if $direction == 'to bottom' {
+    $veryold-direction: 'left top, left bottom';
+  } @else if $direction == 'to right' {
+    $veryold-direction: 'top left, bottom right';
+  } @else if $direction == 'to top' {
+    $veryold-direction: 'left bottom, left top';
+  } @else if $direction == 'to left' {
+    $veryold-direction: 'top right, bottom left';
+  } @else {
+    $veryold-direction: angle($direction);
+  }
+
+
+  @return $old-direction, $veryold-direction;
+}
+
+@function is-valid-keyword-direction($value) {
+  @return not not index(
+    'top' 'right' 'bottom' 'left'
+    'to top' 'to right' 'to bottom' 'to left'
+    'to top right' 'to right top'
+    'to bottom right' 'to right bottom'
+    'to top left' 'to left top'
+    'to bottom left' 'to left bottom', $value);
+}
+
+@mixin x-opacity($value: 0) {
+  $value-percentage: $value * 100;
+
+  opacity: $value;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$value-percentage})";
+  filter: alpha(opacity=#{$value-percentage});
+}
+
+@mixin x-placeholder {
+  &::-webkit-input-placeholder {
+    @content // Chrome, Safari, Opera
+  }
+  &::-moz-placeholder {
+    @content // Firefox 19+
+  }
+  &:-ms-input-placeholder {
+    @content // IE 10+
+  }
+}
+
+@mixin x-tab-size($value: 4) {
+  -moz-tab-size: $value;
+  tab-size: $value;
+}
+
+@mixin x-transform($values) {
+  -webkit-transform: $values; // Chrome, Safari, iOS Safari, Android Stock
+  -ms-transform: $values; // IE9
+  transform: $values;
+}
+
+@mixin x-transition($values...) {
+  -webkit-transition: $values;
+  transition: $values;
+}
+
+$size: 280px;
+/* -------------------------------------------------------- */
+/*	Animation
+/* -------------------------------------------------------- */
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin rotate($degrees) {
+  transform: rotate($degrees);
+  -webkit-transform: rotate($degrees); // for Safari/Chrome
+  -moz-transform: rotate($degrees); // for Firefox
+  -ms-transform: rotate($degrees); // for IE
+  -o-transform: rotate($degrees); // for Opera
+}
+
+@mixin box-shadow($x: 0, $y: 0, $blur: 0, $spread: 0, $color: rgba(0, 0, 0, 0.1)) {
+  box-shadow: $x $y $blur $spread $color;
+  -webkit-box-shadow: $x $y $blur $spread $color;
+  -moz-box-shadow: $x $y $blur $spread $color;
+}
+
+//@mixin background-image($image) {
+//  background-image: url(#{$image});
+//}
+@keyframes rotate {
+  0% {
+    @include rotate(0deg);
+  }
+  50% {
+    @include rotate(120deg);
+  }
+  100% {
+    @include rotate(0deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    @include rotate(0deg);
+  }
+  50% {
+    @include rotate(120deg);
+  }
+  100% {
+    @include rotate(0deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  0% {
+    @include rotate(0deg);
+  }
+  50% {
+    @include rotate(120deg);
+  }
+  100% {
+    @include rotate(0deg);
+  }
+}
+
+@-ms-keyframes rotate {
+  0% {
+    @include rotate(0deg);
+  }
+  50% {
+    @include rotate(120deg);
+  }
+  100% {
+    @include rotate(0deg);
+  }
+}
+
+@mixin background-image($gradient) {
+  background: $gradient;
+}
+
+html {
+  min-height: 100%;
+  @include background-image(linear-gradient(#51addf, #0d1b44));
+  background-repeat: no-repeat;
+}
+
+h1 {
+  text-align: center;
+  font-family: helvetica, arial, sans-serif;
+  color: #fff;
+  font-size: 3em;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  line-height: 1;
+}
+
+@mixin transition-duration($duration) {
+  -webkit-transition-duration: $duration;
+  -moz-transition-duration: $duration;
+  -o-transition-duration: $duration;
+  transition-duration: $duration;
+}
+
+div#shazam {
+  position: relative;
+
+  button {
+    position: absolute;
+    cursor: pointer;
+    $padding: .8;
+    width: $size * $padding;
+    height: $size * $padding;
+    left: 50%;
+    top: 50%;
+    margin-left: -($size * $padding)/2;
+    margin-top: -($size * $padding)/2;
+    display: block;
+    border: none;
+    @include border-radius(200px);
+    background-color: #040510;
+    background-repeat: repeat-x;
+    @include x-transition(background-position);
+    @include transition-duration(.3s);
+    @include background-image(linear-gradient(#5fb8e6, #040510));
+    z-index: 2;
+
+    &:hover {
+      background-position: 0 -25px;
+    }
+
+    span.c {
+      $c_size: .2;
+      display: block;
+      position: absolute;
+      border: $size / 9 solid white;
+      width: $size * $c_size;
+      height: $size * $c_size;
+      border-right: none;
+      left: 50%;
+      top: 50%;
+      margin-left: -($size * $c_size)/1.4;
+      margin-top: -($size * $c_size)/1;
+      @include border-radius(100px 0 0 100px);
+
+      &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: $size / 9;
+        height: $size / 9;
+        @include border-radius(50px);
+        background: #fff;
+      }
+
+      &:before {
+        left: 41px;
+        top: -31px;
+      }
+
+      &:after {
+        left: 41px;
+        top: 56px;
+      }
+
+      &.one {
+        left: 32%;
+        top: 50%;
+        @include rotate(-45deg);
+      }
+
+      &.two {
+        left: 65%;
+        top: 45%;
+        @include rotate(135deg);
+      }
+    }
+  }
+}
+
+#slices {
+  -webkit-animation: rotate 9s infinite ease-in-out;
+  -moz-animation: rotate 9s infinite ease-in-out;
+  -ms-animation: rotate 9s infinite ease-in-out;
+  -o-animation: rotate 9s infinite ease-in-out;
+  animation: rotate 9s infinite ease-in-out;
+  margin: 0 auto;
+  width: $size;
+  height: $size;
+  background: teal;
+  @include box-shadow(0 0 10px rgba(0, 0, 0, .4), 0 0 22px rgba(0, 0, 0, .7));
+  @include border-radius(300px);
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  @include border-radius(200px);
+
+  .slice {
+    $size: 200px;
+    z-index: 1;
+    display: block;
+    position: absolute;
+    width: $size;
+    height: $size;
+    margin-left: -$size/2;
+
+    &.one {
+      left: 195px;
+      top: -75px;
+      @include x-transform(rotate(-19deg) skew(6deg, 6deg));
+      background-color: #0E63B8;
+    }
+
+    &.two {
+      left: 123%;
+      top: 19%;
+      @include x-transform(rotate(49deg) skew(-25deg, -25deg));
+      background-color: #199ED8;
+    }
+
+    &.three {
+      left: 115%;
+      top: 49%;
+      @include x-transform(rotate(73deg) skew(-25deg, -25deg));
+      background-color: #CDEBF7;
+    }
+
+    &.four {
+      left: 94%;
+      top: 73%;
+      @include x-transform(rotate(98deg) skew(-25deg, -25deg));
+      background-color: #95D4ED;
+    }
+
+    &.five {
+      left: 192px;
+      top: 85%;
+      @include x-transform(rotate(120deg) skew(-25deg, -25deg));
+      background-color: #84CBE8;
+    }
+
+    &.six {
+      left: 121px;
+      top: 88%;
+      @include x-transform(rotate(140deg) skew(-25deg, -25deg));
+      background-color: #5AB8E1;
+    }
+
+    &.seven {
+      left: 51px;
+      top: 81%;
+      @include x-transform(rotate(160deg) skew(-25deg, -25deg));
+      background-color: #47AADA;
+    }
+
+    &.eight {
+      left: -19px;
+      top: 149px;
+      @include x-transform(rotate(190deg) skew(-20deg, -20deg));
+      background-color: #2A99D4;
+    }
+
+    &.nine {
+      left: 1px;
+      top: -22px;
+      @include x-transform(rotate(246deg) skew(-17deg, -17deg));
+      background-color: #1E86C9;
+    }
+
+    &.ten {
+      left: 56px;
+      top: -178px;
+      @include x-transform(rotate(-66deg) skew(-33deg, -33deg));
+      background-color: #1279C4;
+
+    }
+  }
+}

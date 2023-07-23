@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "sass-essentials": "^2.0.0",
+    "sass-mq": "^6.0.0"
+  },
+  "dependencies": {
+    "sass-mixins": "^0.13.0"
+  }
+}

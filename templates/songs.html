@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="songs">
+    <div class="top-color-splash"></div>
+    <h2>Songs</h2>
+    <div class="top-color-splash"></div>
+    <div class="songs-table">
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">#</div>
+                <div class="col col-2">Song name</div>
+                <div class="col col-3">Artist</div>
+                <div class="col col-4">Date added</div>
+                <div class="col col-5">Playing</div>
+            </li>
+            {% for info in information %}
+            <li class="table-row">
+                <div class="col col-1">{{info[0]}}</div>
+                <div class="col col-2">{{info[1]}}</div>
+                <div class="col col-3">{{info[2]}}</div>
+                <div class="col col-4">{{info[3]}}</div>
+                <div id="song-{{info[0]}}" class="col col-5">
+                    <button onclick="myFunction('{{info[0]}}')" class="song-button fa fa-play"
+                            style="color: var(--play_icon_not_playing_color)" aria-hidden="true"></button>
+                    <script>
+                        function myFunction(song) {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', '/set_song?song=' + song, true);
+                            xhr.send();
+                            const buttons = document.getElementsByClassName('song-button');
+                            for (var i = 0; i < buttons.length; i++) {
+                                if (buttons[i].parentNode.id === 'song-' + song) {
+                                    buttons[i].style.color = 'var(--play_icon_playing_color)';
+                                } else {
+                                    buttons[i].style.color = 'var(--play_icon_not_playing_color)';
+                                }
+                            }
+                        }
+                    </script>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <audio id="display-sound-3" src="static/sounds/447910__breviceps__plop.wav"></audio>
+    </div>
+</div>
+<script>
+const sound3 = document.getElementById('display-sound-3');
+const songs = document.querySelectorAll('.songs .table-row');
+console.log(songs);
+console.log("aici ar trb sa le am")
+songs.forEach(item => {
+  console.log(item);
+  item.addEventListener('mouseenter', () => {
+    console.log('Playlist item hovered over');
+    sound3.currentTime = 0;
+    sound3.play();
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--  <div class="info">-->
+<!--  <i class="fa fa-info-circle" style="color: black"></i>-->
+<!--  <span class="extra-info">-->
+<!--    A little column extra info. Aaand just a little bit more-->
+<!--  </span>-->
+<!--</div>-->
+<div class="records">
+    <div class="top-color-splash"></div>
+    <h2>Touch To Speak</h2>
+    <div class="top-color-splash"></div>
+</div>
+<!--<div class="box">-->
+<!--	<a class="button" href="#popup1">Let me Pop up</a>-->
+<!--</div>-->
+
+<!--<div id="popup1" class="overlay">-->
+<!--	<div class="popup">-->
+<!--		<h2>Here i am</h2>-->
+<!--		<a class="close" href="#">&times;</a>-->
+<!--		<div class="content">-->
+<!--			Thank to pop me out of that button, but now i'm done so you can close this window.-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;    <details>&ndash;&gt;-->
+<!--        <summary><i class="fa fa-info-circle" style="color: black"></i></summary>-->
+<!--        <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions,-->
+<!--            award-winning fireworks and seasonal special events.</p>-->
+<!--    </details>-->
+
+    <div class="microphone">
+        <div id="shazam">
+            <button id="button" type="submit" onmousedown="startRecording()" onmouseup="stopRecording()">
+                <span class="c one"></span>
+                <span class="c two"></span>
+            </button>
+            <div id="slices">
+                <i class="slice one"></i>
+                <i class="slice two"></i>
+                <i class="slice three"></i>
+                <i class="slice four"></i>
+                <i class="slice five"></i>
+                <i class="slice six"></i>
+                <i class="slice seven"></i>
+                <i class="slice eight"></i>
+                <i class="slice nine"></i>
+                <i class="slice ten"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<audio id="display-sound" src="static/sounds/zapsplat_multimedia_button_click_fast_plastic_49161.mp3"></audio>
+<h1 id="placeholder"></h1>
+<h2 id="verify"></h2>
+<div class="songs-table" style="display: none; transform: translateY(-100px)">
+    <ul class="responsive-table">
+        <li class="table-row">
+            <div class="col col-1"></div>
+            <div class="col col-2"></div>
+            <div class="col col-3"></div>
+            <div class="col col-4"></div>
+            <div id="song-{{text[1]}}" class="col col-5">
+                <button onclick="myFunction('{{text[1]}}')" class="song-button fa fa-play"
+                        style="color: var(--play_icon_not_playing_color)" aria-hidden="true"></button>
+                <script>
+                    function myFunction(song) {
+                        var col1Text = $('.col-1').text();
+                        console.log(col1Text);
+                        console.log("Trimit " + col1Text)
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', '/set_song?song=' + col1Text, true);
+                        xhr.send();
+                        const buttons = document.getElementsByClassName('song-button');
+                        for (var i = 0; i < buttons.length; i++) {
+                            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                            // console.log(buttons[i].parentNode.id)
+                            // console.log(col1Text)
+                            if (buttons[i].parentNode.id === 'song-' + col1Text) {
+                                buttons[i].style.color = 'var(--play_icon_playing_color)';
+                            } else {
+                                buttons[i].style.color = 'var(--play_icon_not_playing_color)';
+                            }
+                        }
+                    }
+                </script>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <audio id="button-sound" src="static/sounds/zapsplat_multimedia_button_click_bright_002_92099.mp3"></audio>
+  <div class="details-icon">
+    <i class="fa fa-info-circle"></i>
+  </div>
+  <div class="details">
+    <h2>Details</h2>
+    <p>Keep the button from the center of the page pressed while you are speaking. Afterwards, wait a few seconds
+    for the content to update. We will try to find the song you are looking for!</p>
+  </div>
+</div>
+<!--<script>-->
+<!--	const button = document.querySelector('#shazam button');-->
+
+<!--document.getElementById("button").addEventListener("click", function() {-->
+<!--  document.getElementById("slices").classList.add("enlarge");-->
+<!--});-->
+<!--</script>-->
+<script>
+
+    const detailsIcon = document.querySelector('.details-icon');
+const details = document.querySelector('.details');
+const sound2 = document.getElementById('button-sound');
+detailsIcon.addEventListener('click', () => {
+  details.classList.toggle('show');
+  sound2.play();
+
+});
+
+
+    var listVar = null;
+    const songsTable = document.querySelector('.songs-table');
+
+    function updatePlaceholderText(text) {
+        console.log(text)
+        if (text[0] !== "None") {
+            $('#placeholder').text("We think you said: " + text[0]);
+            $('#verify').text("This is what we found");
+            // console.log("Am " + listVar)
+            // listVar = song[1];
+            // console.log("Am "+listVar)
+            console.log("###### " + text[1])
+            if (text[1] !== undefined) {
+                // if(text[1][0]!==$('.col-1').textContent)
+                //     soundDisplay.play();
+                $('.col-1').text(text[1][0])
+                $('.col-2').text(text[1][1])
+                $('.col-3').text(text[1][2])
+                $('.col-4').text(text[1][3])
+
+                $('#song-div').attr('id', 'song-' + text[0]);
+
+                songsTable.style.display = 'block';
+            } else {
+                songsTable.style.display = 'none';
+            }
+        }
+    }
+
+    function updateText() {
+        $.ajax({
+            type: 'GET',
+            url: '/current_text?' + new Date().getTime(),  // add a cache-busting query parameter
+            success: function (text) {
+                console.log('Current text: ' + text);
+                updatePlaceholderText(text);
+            },
+            error: function () {
+                console.log('Error getting current text');
+            }
+        });
+    }
+
+    // call updateSong() once when the page is loaded
+    updateText();
+
+    // call updateSong() every 5 seconds to check for updates
+    setInterval(updateText, 400);
+    // });
+
+
+    var isRecording = false;
+
+    function startRecording() {
+        isRecording = true;
+        fetch('/recor', {method: 'POST'}).then(response => {
+            if (response.ok) {
+                console.log('Recording started');
+            } else {
+                console.error('Error starting recording');
+            }
+        });
+    }
+
+    function stopRecording() {
+        isRecording = false;
+        console.log('Recording stopped');
+    }
+
+</script>
+
+<!--</div>-->
+
+{% endblock %}

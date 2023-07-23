@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"
+            integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0"
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='scripts/script.js')}}"></script>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Media player</title>
+    <link rel="stylesheet" href="../static/stylesheets/temp.css">
+</head>
+<header>
+    <div class="fixed-wrapper">
+        <div class="normal-wrapper">
+            <div id="logo-container">
+                <i class="fa fa-volume-down logo-icon"></i>
+                <h1 style="transform: translateY(-8px)">SOUNDS</h1>
+            </div>
+            <ul id="navbar">
+                <li><a id="coll" class="not_selected" href="/" onclick="loadContent('/collections');">Collections</a></li>
+                <li><a id="sngs" class="not_selected" href="/songs" onclick="loadContent('/songs');">All songs</a></li>
+                <li>
+                    <a id="microphone" class="not_selected" href="/record"><i class="fa-solid fa-microphone"></i></a>
+                    <a id="camera" class="not_selected" href="/record_camera"><i class="fa-solid fa-camera"></i></a>
+                </li>
+            </ul>
+            <div id="navbar-song">
+                <h1 id="id"></h1>
+                <audio controls id="audio-player">
+                    <source src="" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+    <div id="top-color-splash"></div>
+</header>
+<body id="content">
+<audio id="display-sound" src="static/sounds/zapsplat_multimedia_button_click_fast_plastic_49161.mp3"></audio>
+{% block content %}
+{% endblock %}
+
+<script>
+    const sound = document.getElementById('display-sound');
+    const navbarItems = document.querySelectorAll('#navbar a');
+    navbarItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            sound.currentTime = 0;
+            sound.play();
+        });
+    });
+    $(document).ready(function () {
+        $('a').on('click', function (event) {
+            event.preventDefault(); // prevent the link from reloading the page
+            var page = $(this).attr('href'); // get the link's href attribute
+            $('#content').load(page); // load the page content into the container element
+        });
+    });
+
+    const audioElement = document.querySelector('audio');
+    audioElement.addEventListener('play', () => {
+        localStorage.setItem('audioTime', audioElement.currentTime);
+    });
+
+</script>
+
+</body>
+</html>

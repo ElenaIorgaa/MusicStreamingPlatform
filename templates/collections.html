@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="spotify-playlists">
+    <div class="top-color-splash"></div>
+    <h2>Our playlists</h2>
+    <div class="top-color-splash"></div>
+    <div class="list">
+        {% for playlist in name_of_playlists %}
+        <div class="item" onclick="redirectToPage('{{playlist}}')">
+            <script>
+                function redirectToPage(parameterValue) {
+                    var url = "{{ url_for('button_click', parameter_value='') }}";
+                    url += parameterValue;
+                    window.location.href = url;
+                }
+            </script>
+            <img src="../static/images/playlists/{{playlists[playlist]['img']}}" alt="playlist image"/>
+            <div class="play">
+                <span class="fa fa-play"></span>
+            </div>
+            <h4>{{playlists[playlist]['name']}}</h4>
+            <p>{{playlists[playlist]['description']}}</p>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+<div class="spotify-playlists">
+    <div class="top-color-splash"></div>
+    <h2>Artists</h2>
+    <div class="top-color-splash"></div>
+    <div class="list">
+        {% for artist in artists %}
+        <div class="item" onclick="redirectToPage('{{artist}}')">
+            <script>
+                function redirectToPage(parameterValue) {
+                    var url = "{{ url_for('button_click', parameter_value='') }}";
+                    url += parameterValue;
+                    window.location.href = url;
+                }
+            </script>
+            <img src="../static/images/artists/{{artist}}.png" alt="playlist image" height="100px" width="40px"/>
+            <div class="play">
+                <span class="fa fa-play"></span>
+            </div>
+            <h4>{{artist}}</h4>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+<audio id="display-sound-2" src="static/sounds/540478__breviceps__metallic-file-select.mp3"></audio>
+<script>
+const sound2 = document.getElementById('display-sound-2');
+const playlistItems = document.querySelectorAll('.spotify-playlists .item');
+console.log(playlistItems);
+console.log("aici ar trb sa le am")
+playlistItems.forEach(item => {
+  console.log(item);
+  item.addEventListener('mouseenter', () => {
+    console.log('Playlist item hovered over');
+    sound2.currentTime = 0;
+    sound2.play();
+  });
+});
+</script>
+{% endblock %}

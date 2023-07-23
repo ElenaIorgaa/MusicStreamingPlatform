@@ -1,0 +1,43 @@
+{
+  "hits": {
+    "name": "Today's top hits",
+    "description": "Serj Tankian is in top of...",
+    "img": "a.png"
+  },
+  "new_music": {
+    "name" : "New music",
+    "description": "Fresh out of the oven",
+    "img" : "c.png"
+  },
+  "old_but_gold": {
+    "name" : "Old but Gold",
+    "description" : "We will never give up",
+    "img" : "b.png"
+  },
+  "our_top_picks": {
+    "name" : "Our top picks",
+    "description": "What we listen to",
+    "img" : "d.png"
+  },
+  "power_music": {
+    "name" : "Power music",
+    "description" : "Something to wake you up",
+    "img" : "f.png"
+  },
+  "relaxing_music" : {
+    "name" : "Relaxing music",
+    "description" : "In case of emergency",
+    "img": "g.png"
+  },
+  "theme_songs" :
+  {
+    "name" : "Theme songs",
+    "description" : "Happiness guaranteed",
+    "img" : "e.png"
+  },
+  "party": {
+    "name" : "Let's party",
+    "description" : "Let's have fun",
+    "img" : "party.png"
+  }
+}
